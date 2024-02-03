@@ -2,4 +2,6 @@ load -input="C:\Users\Casas\OneDrive - Texas Tech University\Documents\Texas Tec
 
 process -input="10"
 
+regex –input=^ABC(01001)*09$
+
 copilot helped generating the cli, and print

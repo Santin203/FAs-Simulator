@@ -83,6 +83,7 @@ class NFA:
         # Set the accept states of the NFA
         self.accept_states = states
 
+    # PENDING IMPLEMENTATION
     def check_string(self, input_string):
         # Check if the input string is accepted by the NFA
         current_state = self.start_state
@@ -128,7 +129,11 @@ def print_fa(fa):
     
     print("delta = {")
     for transition in fa.transitions:
-        print("    (" + transition["state"] + ", " + transition["input"] + ") -> " + transition["next_state"])
+        print("    (" + transition["state"] + ", " + transition["input"] + ") -> ", end="")
+        if isinstance(transition["next_state"], list):
+            print(", ".join(transition["next_state"]))
+        else:
+            print(transition["next_state"])
     print("}\n")
     
     print("Initial state = " + fa.start_state)
@@ -161,7 +166,7 @@ while True:
         
         # Accessing the 'delta' array and checking if 'next_state' is a list
         for transition in data['delta']:
-            if isinstance(transition['next_state'], list):
+            if isinstance(transition['next_state'], list) or transition["input"] == "<EPSILON>":
                 type = 1
                 break
                 
@@ -169,6 +174,7 @@ while True:
         if type == 1:
             # Create and configure the NFA from the given file
             fa = NFA()
+            fa = create_fa_json(data)
             print("NFA loaded successfully.")
             
             
@@ -202,7 +208,7 @@ while True:
         try:
             print_fa(fa)
         except:
-            print("DFA not loaded.")
+            print("FA not loaded.")
     
     else:
         print("Invalid command.")
