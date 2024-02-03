@@ -1,0 +1,5 @@
+load -input="C:\Users\Casas\OneDrive - Texas Tech University\Documents\Texas Tech\Spring 2024\CS-3383\Projects\Project 1\src\input1.json"
+
+process -input="10"
+
+copilot helped generating the cli, and print
