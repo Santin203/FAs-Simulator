@@ -1,7 +1,9 @@
-load -input="C:\Users\Casas\OneDrive - Texas Tech University\Documents\Texas Tech\Spring 2024\CS-3383\Projects\Project 1\src\input1.json"
-
 process -input="10"
 
-regex –input=^ABC(01001)*09$
+regex -input=^ABC(01001)*09$
+
+regex -input=9*
 
 copilot helped generating the cli, and print
+
+fro nfa's/dfa checking, check for state and match for input, if more than one same input, the it is a nfa
