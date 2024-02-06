@@ -50,6 +50,28 @@ class FA:
             print("String accepted")
         else:
             print("String not accepted")
+            
+    def verbose_mode(self, input_string):
+        print("\nProcessing string: " + input_string + "\n")
+        
+        # Check if the input string is accepted by the FA and print the transitions
+        current_state = self.start_state
+        for symbol in input_string:
+            next_state = ""
+            for transition in self.transitions:
+                if transition["state"] == current_state and transition["input"] == symbol:
+                    next_state = transition["next_state"]
+                    print(current_state + " -- " + symbol + " --> " + next_state)
+                    break
+            if next_state is None:
+                return False
+            current_state = next_state
+            
+        if current_state in self.accept_states:
+            print("\n" + current_state + " is a final state\n")
+            print("String accepted")
+        else:
+            print("String not accepted")
 
     def print_fa(self):
         # Print the DFA
@@ -168,19 +190,19 @@ while True:
         fa = FA()
         fa = create_fa_json(data)
         print("FA loaded successfully.")
-    
+        fa.print_fa()
+        
+    elif command.startswith("process -input=") and "-verbose" in command:
+        input_string = command.split("=")[1].split(" ")[0].strip('"')
+        try:
+            fa.verbose_mode(input_string)
+        except:
+            print("FA not loaded.")
+            
     elif command.startswith("process -input="):
         input_string = command.split("=")[1].strip('"')
         try:
             fa.check_string(input_string)
-        except:
-            print("FA not loaded.")
-    
-    elif command.startswith("process -input=") and "-verbose" in command:
-        input_string = command.split("=")[1].split(" ")[0]
-        try:
-            fa.check_string(input_string)
-            print("Verbose mode enabled.")
         except:
             print("FA not loaded.")
     
