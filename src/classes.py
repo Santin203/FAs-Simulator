@@ -136,8 +136,8 @@ class star_fa:
         fa.set_start_state("q0")
         
         #FIX
-        if len(symbols) < 1:
-            fa.add_transition([{"state": "q" + str(state), "input": symbol, "next_state": "q" + str(state)}])
+        if len(symbols) <= 1:
+            fa.add_transition([{"state": "q" + str(state), "input": symbols[state], "next_state": "q" + str(state)}])
             fa.set_accept_states(["q" + str(state)])
         else:
             for symbol in symbols:
