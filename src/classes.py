@@ -42,6 +42,7 @@ class FA:
         current_state = self.start_state
         for symbol in input_string:
             next_state = ""
+            new_input = ""
             for transition in self.transitions:
                 if transition["state"] == current_state and transition["input"] == symbol:
                     next_state = transition["next_state"]
@@ -65,6 +66,8 @@ class FA:
         current_state = self.start_state
         for symbol in input_string:
             next_state = ""
+            new_input = input_string[input_string.index(symbol)+1:]
+            
             for transition in self.transitions:
                 if transition["state"] == current_state and transition["input"] == symbol:
                     next_state = transition["next_state"]
