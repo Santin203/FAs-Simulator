@@ -56,36 +56,52 @@ class FA:
         else:
             print("String not accepted")
             
-    def verbose_mode(self, input_string):
+    def verbose_mode(self, current_state, input_string):
+        #ADD <EPSILON> SUPPORT
         if input_string == "":
-            print("\nProcessing string: <EMPTY>\n")
+            #print("\nProcessing string: <EMPTY>\n")
+            pass
         else:
-            print("\nProcessing string: " + input_string + "\n")
+            #print("\nProcessing string: " + input_string + "\n")
         
-        # Check if the input string is accepted by the FA and print the transitions
-        current_state = self.start_state
-        for symbol in input_string:
-            next_state = ""
-            new_input = input_string[input_string.index(symbol)+1:]
+            # Check if the input string is accepted by the FA and print the transitions
+            for symbol in input_string:
+                if symbol not in self.alphabet:
+                    print("Symbol " + symbol + " is not in the alphabet")
+                    return False
+                next_state = ""
+                new_input = input_string[input_string.index(symbol)+1:]
+                
+                
+                for transition in self.transitions:
+                        
+                    if transition["state"] == current_state and transition["input"] == symbol:
+                        next_state = transition["next_state"]
+                        print(current_state + " -- " + symbol + " --> " + next_state)
+                        status = self.verbose_mode(next_state, new_input)
+                        if status:
+                            return True
             
-            for transition in self.transitions:
-                if transition["state"] == current_state and transition["input"] == symbol:
-                    next_state = transition["next_state"]
-                    print(current_state + " -- " + symbol + " --> " + next_state)
-                    break
-            if next_state is None:
-                return False
-            current_state = next_state
+                if next_state is None:
+                    return False
+                current_state = next_state
             
         if current_state in self.accept_states:
-            if input_string != "":
-                print("\n" + current_state + " is a final state\n")
+            #print("\n" + current_state + " is a final state\n")
                 
-            else:
-                print("Initial state is a final state\n")
-            print("String accepted\n")
+            #print("String accepted\n")
+            return True
         else:
-            print("String not accepted\n")
+            #print("String not accepted\n")
+            #FINISH IMPLEMENTING EPSILON
+            for transition in self.transitions:
+                if transition["state"] == current_state and transition["input"] == "<EPSILON>":
+                    next_state = transition["next_state"]
+                    print(current_state + " -- " + "<EPSILON>" + " --> " + next_state)
+                    status = self.verbose_mode(next_state, input_string)
+                    if status:
+                        return True
+            return False
 
     def print_fa(self):
         # Print the DFA

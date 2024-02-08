@@ -11,3 +11,4 @@ regex -input=^ABC(01001)*09$
 regex -input=9*
 
 copilot helped generating the cli, and print
+concatenate with epsilon transitions for regex automatons

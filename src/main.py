@@ -17,17 +17,14 @@ while True:
     
     elif command.startswith("load -input="):
         file_path = r"" + command.split("=")[1].strip('"')
-        
-        f = open(file_path)
+
+        try:
+            f = open(file_path)
+        except:
+            print("File not found.")
+            continue
+
         data = json.load(f)
-        
-        #type = 0
-        
-        # Accessing the 'delta' array and checking if 'next_state' is a list
-        # for transition in data['delta']:
-        #     if isinstance(transition['next_state'], list) or transition["input"] == "<EPSILON>":
-        #         type = 1
-        #         break
 
         # Create and configure the DFA from the given file
         fa = FA()
@@ -38,7 +35,11 @@ while True:
     elif command.startswith("process -input=") and "-verbose" in command:
         input_string = command.split("=")[1].split(" ")[0].strip('"')
         try:
-            fa.verbose_mode(input_string)
+            status = fa.verbose_mode(fa.start_state,input_string)
+            if status:
+                print("String accepted")
+            else:
+                print("String not accepted")
         except:
             print("FA not loaded.")
             
