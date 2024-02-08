@@ -1,5 +1,6 @@
 from classes import *
 
+
 def create_fa_json(data, fa):
 
     fa.add_states(data["states"])

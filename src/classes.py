@@ -81,15 +81,18 @@ class FA:
                         status = self.verbose_mode(next_state, new_input)
                         if status:
                             return True
+                    if transition["state"] == current_state and transition["input"] == "<EPSILON>":
+                        next_state = transition["next_state"]
+                        print(current_state + " -- " + "<EPSILON>" + " --> " + next_state)
+                        status = self.verbose_mode(next_state, input_string)
+                        if status:
+                            return True
             
                 if next_state is None:
                     return False
                 current_state = next_state
             
         if current_state in self.accept_states:
-            #print("\n" + current_state + " is a final state\n")
-                
-            #print("String accepted\n")
             return True
         else:
             #print("String not accepted\n")
