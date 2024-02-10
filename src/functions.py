@@ -1,5 +1,7 @@
 from classes import *
 
+regex_types = ["*", "+", "?", "^", "$", "(", ")"]
+
 
 def create_fa_json(data, fa):
 
@@ -21,11 +23,22 @@ def fa_from_regex(regex):
                       "w", "x", "y", "z"]
     used_letters = ["q"]
     symbols = []
+    inside_parenthesis = 0
 
     for i, symbol in enumerate(regex):
         new_input = ""
         if symbol == "*":
-            print("Star")
+            symbols.pop()  # Remove the last symbol from the list
+            
+            if len(symbols) > 0:
+                temp_fa = FA()
+                # Get a string from all the symbols in the list
+                for s in symbols:
+                    new_input += s
+                caret_and_dollar_fa(new_input, temp_fa)
+                fas_list.append(temp_fa)  # Add the FA to the list
+                symbols = []
+            
             new_input = regex[i-1]  # Get the symbol before the "*"
             if new_input == ")":
                 continue
@@ -33,42 +46,67 @@ def fa_from_regex(regex):
             star_fa(new_input, temp_fa)
             fas_list.append(temp_fa)  # Add the FA to the list
             
+
+            
         elif symbol == "+":
-            print("Plus")
+            
+            symbols.pop()  # Remove the last symbol from the list
+            
+            if len(symbols) > 0:
+                temp_fa = FA()
+                # Get a string from all the symbols in the list
+                for s in symbols:
+                    new_input += s
+                caret_and_dollar_fa(new_input, temp_fa)
+                fas_list.append(temp_fa)  # Add the FA to the list
+                symbols = []
+                
             new_input = regex[i-1]
             temp_fa = FA()
             plus_fa(new_input, temp_fa)
             fas_list.append(temp_fa)  # Add the FA to the list
             
         elif symbol == "?":
-            print("Question mark")
+            symbols.pop()  # Remove the last symbol from the list
+            
+            if len(symbols) > 0:
+                temp_fa = FA()
+                # Get a string from all the symbols in the list
+                for s in symbols:
+                    new_input += s
+                caret_and_dollar_fa(new_input, temp_fa)
+                fas_list.append(temp_fa)  # Add the FA to the list
+                symbols = []
+                
             new_input = regex[i-1]
             temp_fa = FA()
             question_mark_fa(new_input, temp_fa)
             fas_list.append(temp_fa)  # Add the FA to the list
             
         elif symbol == "^":
-            print("Caret")
-            new_input = regex[i+1]
-            temp_fa = FA()
-            caret_and_dollar_fa(new_input, temp_fa)
-            fas_list.append(temp_fa)  # Add the FA to the list
+            continue
             
         elif symbol == "$":
-            print("Dollar sign")
-            new_input = regex[i-1]
-            temp_fa = FA()
-            caret_and_dollar_fa(new_input, temp_fa)
-            fas_list.append(temp_fa)  # Add the FA to the list
+            continue
 
         elif symbol == "(":
+            
+            if len(symbols) > 0:
+                temp_fa = FA()
+                # Get a string from all the symbols in the list
+                for s in symbols:
+                    new_input += s
+                caret_and_dollar_fa(new_input, temp_fa)
+                fas_list.append(temp_fa)  # Add the FA to the list
+                symbols = []
+                
             # Get the substring inside the parenthesis
             substring = ""
             j = i + 1
             while regex[j] != ")":
                 substring += regex[j]
                 j += 1
-            print("Substring: " + substring)
+            #print("Substring: " + substring)
             if regex[j+1] == "*":
                 temp_fa = FA()
                 star_fa(substring, temp_fa)
@@ -80,11 +118,26 @@ def fa_from_regex(regex):
                 question_mark_fa(substring, temp_fa)
             else:
                 print("Error")
+            inside_parenthesis = len(substring)
             fas_list.append(temp_fa)
+            symbols = []
             
         else:
-            print("Symbol")
-            #symbols.append(symbol)
+            if inside_parenthesis > 0:
+                inside_parenthesis -= 1
+                continue
+            symbols.append(symbol)
+
+            
+    if len(symbols) > 0:
+        temp_fa = FA()
+        # Get a string from all the symbols in the list
+        for s in symbols:
+            new_input += s
+        caret_and_dollar_fa(new_input, temp_fa)
+        fas_list.append(temp_fa)  # Add the FA to the list
+        symbols = []            
+                
             
     for i in range(len(fas_list) - 1):
         # Replace 'q' with a unused letter
@@ -124,8 +177,10 @@ def concatenate_fa(fa1, fa2):
     fa = FA()
     
     for symbol in fa1.alphabet:
-        if symbol not in fa.alphabet:
+        if symbol not in fa.alphabet and symbol != "<EPSILON>":
             fa.add_alphabet(symbol)
+        if "<EPSILON>" not in fa.alphabet:
+            fa.add_alphabet(["<EPSILON>"])
     
     for symbol in fa2.alphabet:
         if symbol not in fa.alphabet:

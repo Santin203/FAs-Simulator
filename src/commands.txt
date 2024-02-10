@@ -12,6 +12,8 @@ process -input="10" -verbose
 
 regex -input=^ABC(01001)*09$
 
+process -input="ABC0100109" -verbose
+
 regex -input=9*
 
 copilot helped generating the cli, and print
