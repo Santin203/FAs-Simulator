@@ -5,6 +5,7 @@
 import json
 from classes import *
 from functions import *       
+import os
 
 
 # Command line interface
@@ -16,6 +17,8 @@ while True:
         break
     
     elif command.startswith("load -input="):
+        os.system('cls' if os.name == 'nt' else 'clear')
+
         file_path = r"" + command.split("=")[1].strip('"')
 
         try:
@@ -29,8 +32,12 @@ while True:
         # Create and configure the DFA from the given file
         fa = FA()
         fa = create_fa_json(data, fa)
-        print("FA loaded successfully.")
-        fa.print_fa()
+        sts = fa.check_fa_consistency()
+        if sts:
+            print("FA loaded successfully.")
+            fa.print_fa()
+        else:
+            print("Invalid FA.")
         
     elif command.startswith("process -input=") and "-verbose" in command:
         input_string = command.split("=")[1].split(" ")[0].strip('"')
@@ -53,11 +60,21 @@ while True:
     elif command.startswith("regex -input="):
         regex = command.split("=")[1]
         fa = FA()
-        star_fa(regex, fa)
+        #star_fa(regex, fa)
         #plus_fa(regex, fa)
-        #fa_from_regex(regex, fa)
+        #question_mark_fa(regex, fa)
+        #caret_and_dollar_fa(regex, fa)
         
-        fa.print_fa()
+        fa = fa_from_regex(regex)
+        
+        sts = fa.check_fa_consistency()
+        if sts:
+            print("FA loaded successfully.")
+            fa.print_fa()
+        else:
+            print("Invalid FA.")
+        
+        #fa.print_fa()
     
     elif command == "print":
         try:
