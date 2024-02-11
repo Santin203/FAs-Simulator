@@ -53,7 +53,7 @@ while True:
     elif command.startswith("process -input="):
         input_string = command.split("=")[1].strip('"')
         try:
-            fa.check_string(input_string)
+            fa.check_string(fa.start_state, input_string)
         except:
             print("FA not loaded.")
     

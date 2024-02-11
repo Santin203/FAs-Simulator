@@ -31,7 +31,6 @@ class FA:
     def set_accept_states(self, state):
         # append the accept state of the FA
         self.accept_states.append(state)
-        #self.accept_states = states
     
     def copy_fa(self, fa):
         self.states = fa.states
@@ -59,7 +58,7 @@ class FA:
                     return False
         return True
 
-    def check_string(self, input_string):
+    def check_string(self, current_state, input_string):
         if input_string == "":
             pass
         else:        
