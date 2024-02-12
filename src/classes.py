@@ -192,13 +192,18 @@ class star_fa:
     def __init__(self, regex, fa):
         # Initialize the FA
         state = 0
-        print("Regex: " + regex)
+        if regex == "":
+            return
         
         # Create and configure the FA from the given regex
         for symbol in regex:
             if (symbol not in regex_types) and (symbol not in fa.alphabet):
                 fa.add_alphabet(symbol)
-                
+        
+        for i in regex:
+            if i in regex_types:
+                regex = regex.replace(i, "")
+        
         fa.add_states(["q0"])
         fa.set_start_state("q0")
         
@@ -229,6 +234,10 @@ class plus_fa:
             if (symbol not in regex_types) and (symbol not in fa.alphabet):
                 fa.add_alphabet(symbol)
                 
+        for i in regex:
+            if i in regex_types:
+                regex = regex.replace(i, "")
+                
         fa.add_states(["q0"])
         fa.set_start_state("q0")
         
@@ -258,6 +267,10 @@ class question_mark_fa:
             if (symbol not in regex_types) and (symbol not in fa.alphabet):
                 fa.add_alphabet(symbol)
                 
+        for i in regex:
+            if i in regex_types:
+                regex = regex.replace(i, "")
+                
         fa.add_states(["q0"])
         fa.set_start_state("q0")
         fa.set_accept_states("q0")
@@ -284,6 +297,10 @@ class caret_and_dollar_fa:
         for symbol in regex:
             if (symbol not in regex_types) and (symbol not in fa.alphabet):
                 fa.add_alphabet(symbol)
+                
+        for i in regex:
+            if i in regex_types:
+                regex = regex.replace(i, "")
                 
         fa.add_states(["q0"])
         fa.set_start_state("q0")

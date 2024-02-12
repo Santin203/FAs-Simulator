@@ -73,8 +73,7 @@ while True:
             fa.print_fa()
         else:
             print("Invalid FA.")
-        
-        #fa.print_fa()
+
     
     elif command == "print":
         try:
