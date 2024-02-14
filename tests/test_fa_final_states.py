@@ -10,6 +10,5 @@ from src.classes import FA
 
 def test_set_accept_states(accept_states):
     fa = FA()
-    for state in accept_states:
-        fa.set_accept_states(state)
+    fa.set_accept_states(accept_states)
     assert fa.accept_states == accept_states

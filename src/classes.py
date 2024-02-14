@@ -30,7 +30,8 @@ class FA:
 
     def set_accept_states(self, state):
         # append the accept state of the FA
-        self.accept_states.append(state)
+        for state in state:
+            self.accept_states.append(state)
     
     def copy_fa(self, fa):
         self.states = fa.states
@@ -140,7 +141,7 @@ class FA:
                     return False
                 current_state = next_state
             
-   
+        #PROBLE, not checking
         if current_state in self.accept_states:
             return True
         else:
@@ -209,7 +210,7 @@ class star_fa:
         
         if len(regex) <= 1:
             fa.add_transition([{"state": "q" + str(state), "input": fa.alphabet[state], "next_state": "q" + str(state)}])
-            fa.set_accept_states("q" + str(state))
+            fa.set_accept_states(["q" + str(state)])
         else:
             for i, symbol in enumerate(regex):
                 if i == len(regex) - 1:
@@ -220,14 +221,15 @@ class star_fa:
                     state += 1
                     fa.add_states(["q" + str(state)])
                 
-            fa.set_accept_states(fa.start_state)
+            fa.set_accept_states([fa.start_state])
             
             
 class plus_fa:
     def __init__(self, regex, fa):
         # Initialize the FA
         state = 0
-        print("Regex: " + regex)
+        if regex == "":
+            return
         
         # Create and configure the FA from the given regex
         for symbol in regex:
@@ -253,14 +255,15 @@ class plus_fa:
         else:
             fa.add_transition([{"state": "q" + str(state), "input": fa.alphabet[0], "next_state": str(fa.states[1])}])
         
-        fa.set_accept_states("q" + str(state))
+        fa.set_accept_states(["q" + str(state)])
 
 # Accepts if there is 0 or 1 of the previous symbol        
 class question_mark_fa:
     def __init__(self, regex, fa):
         # Initialize the FA
         state = 0
-        print("Regex: " + regex)
+        if regex == "":
+            return
         
         # Create and configure the FA from the given regex
         for symbol in regex:
@@ -273,7 +276,7 @@ class question_mark_fa:
                 
         fa.add_states(["q0"])
         fa.set_start_state("q0")
-        fa.set_accept_states("q0")
+        fa.set_accept_states(["q0"])
         
         
         for i, symbol in enumerate(regex):
@@ -281,7 +284,7 @@ class question_mark_fa:
                 fa.add_transition([{"state": "q" + str(state), "input": symbol, "next_state": "q" + str(state+1)}])
                 state += 1
                 fa.add_states(["q" + str(state)])
-                fa.set_accept_states("q" + str(state))
+                fa.set_accept_states(["q" + str(state)])
             
             else:
                 fa.add_transition([{"state": "q" + str(state), "input": symbol, "next_state": "q" + str(state+1)}])  
@@ -291,7 +294,8 @@ class caret_and_dollar_fa:
     def __init__(self, regex, fa):
         # Initialize the FA
         state = 0
-        print("Regex: " + regex)
+        if regex == "":
+            return
         
         # Create and configure the FA from the given regex
         for symbol in regex:
@@ -310,4 +314,4 @@ class caret_and_dollar_fa:
             state += 1
             fa.add_states(["q" + str(state)])
             
-        fa.set_accept_states("q" + str(state))
+        fa.set_accept_states(["q" + str(state)])

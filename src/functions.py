@@ -27,7 +27,7 @@ def fa_from_regex(regex):
 
     for i, symbol in enumerate(regex):
         new_input = ""
-        if symbol == "*":
+        if symbol == "*" and inside_parenthesis == 0:
             symbols.pop()  # Remove the last symbol from the list
             
             if len(symbols) > 0:
@@ -48,7 +48,7 @@ def fa_from_regex(regex):
             
 
             
-        elif symbol == "+":
+        elif symbol == "+" and inside_parenthesis == 0:
             
             symbols.pop()  # Remove the last symbol from the list
             
@@ -66,7 +66,7 @@ def fa_from_regex(regex):
             plus_fa(new_input, temp_fa)
             fas_list.append(temp_fa)  # Add the FA to the list
             
-        elif symbol == "?":
+        elif symbol == "?" and inside_parenthesis == 0:
             symbols.pop()  # Remove the last symbol from the list
             
             if len(symbols) > 0:
@@ -106,16 +106,23 @@ def fa_from_regex(regex):
             while regex[j] != ")":
                 substring += regex[j]
                 j += 1
-            #print("Substring: " + substring)
+            # TRY REGEX=(ABC*)+
+            print("Substring: " + substring)
+            # temp_fa = FA()
+            # temp_fa = fa_from_regex(substring)
             if regex[j+1] == "*":
                 temp_fa = FA()
                 star_fa(substring, temp_fa)
             elif regex[j+1] == "+":
+                
                 temp_fa = FA()
                 plus_fa(substring, temp_fa)
             elif regex[j+1] == "?":
                 temp_fa = FA()
                 question_mark_fa(substring, temp_fa)
+            elif regex[j+1] == "$":
+                temp_fa = FA()
+                caret_and_dollar_fa(substring, temp_fa)
             else:
                 print("Error")
             inside_parenthesis = len(substring)
@@ -191,11 +198,8 @@ def concatenate_fa(fa1, fa2):
           
     fa.set_start_state(fa1.start_state)
     #fa.set_start_state(fa2.start_state)
-    for state in fa1.accept_states:
-        fa.set_accept_states(state)
-    
-    for state in fa2.accept_states:
-        fa.set_accept_states(state)
+    fa.set_accept_states(fa1.accept_states)
+    fa.set_accept_states(fa2.accept_states)
     
     fa.add_transition(fa1.transitions)
     # Make <EPSILON> transitions from the accept states of fa1 to the start state of fa2

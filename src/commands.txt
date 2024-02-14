@@ -10,11 +10,16 @@ process -input="10"
 
 process -input="10" -verbose
 
+process -input="010101" -verbose
+
+
 regex -input=^ABC(01001)*09$
 
 process -input="ABC0100109" -verbose
 
 regex -input=9*
+
+regex -input=(abc*)+
 
 copilot helped generating the cli, and print
 concatenate with epsilon transitions for regex automatons

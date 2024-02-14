@@ -8,7 +8,7 @@ def test_copy_all_attributes():
     fa1.add_transition([{"state": "q0", "input": "a", "next_state": "q1"},
                         {"state": "q1", "input": "b", "next_state": "q2"}])
     fa1.set_start_state("q0")
-    fa1.set_accept_states("q2")
+    fa1.set_accept_states(["q2"])
 
     fa2 = FA()
     fa2.copy_fa(fa1)
@@ -26,7 +26,7 @@ def test_return_value():
     fa1.add_transition([{"state": "q0", "input": "a", "next_state": "q1"},
                         {"state": "q1", "input": "b", "next_state": "q2"}])
     fa1.set_start_state("q0")
-    fa1.set_accept_states("q2")
+    fa1.set_accept_states(["q2"])
 
     fa2 = FA()
     return_value = fa2.copy_fa(fa1)
@@ -59,14 +59,14 @@ def test_copy_fa_no_states():
     assert fa2.alphabet == ["a", "b"]
     assert fa2.transitions == [{"state": "", "input": "a", "next_state": ""}]
     assert fa2.start_state == ""
-    assert fa2.accept_states == [""]
+    assert fa2.accept_states == []
 
 def test_copy_fa_no_alphabet():
     fa1 = FA()
     fa1.add_states(["q0", "q1", "q2"])
     fa1.add_transition([{"state": "q0", "input": "", "next_state": "q1"}])
     fa1.set_start_state("q0")
-    fa1.set_accept_states("q2")
+    fa1.set_accept_states(["q2"])
 
     fa2 = FA()
     fa2.copy_fa(fa1)
