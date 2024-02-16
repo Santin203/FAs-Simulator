@@ -1,0 +1,88 @@
+{
+    "states": [
+      "0",
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "7"
+    ],
+    "alphabet": [
+      "0",
+      "1"
+    ],
+    "delta": [
+      {
+        "state": "3",
+        "input": "0",
+        "next_state": "2"
+      },
+      {
+        "state": "2",
+        "input": "1",
+        "next_state": "3"
+      },
+      {
+        "state": "0",
+        "input": "1",
+        "next_state": "1"
+      },
+      {
+        "state": "1",
+        "input": "0",
+        "next_state": "2"
+      },
+      {
+        "state": "5",
+        "input": "0",
+        "next_state": "6"
+      },
+      {
+        "state": "0",
+        "input": "0",
+        "next_state": "0"
+      },
+      {
+        "state": "4",
+        "input": "0",
+        "next_state": "4"
+      },
+      {
+        "state": "1",
+        "input": "1",
+        "next_state": "1"
+      },
+      {
+        "state": "2",
+        "input": "0",
+        "next_state": "0"
+      },
+      {
+        "state": "4",
+        "input": "1",
+        "next_state": "4"
+      },
+      {
+        "state": "6",
+        "input": "1",
+        "next_state": "7"
+      },
+      {
+        "state": "4",
+        "input": "1",
+        "next_state": "5"
+      },
+      {
+        "state": "3",
+        "input": "1",
+        "next_state": "1"
+      }
+    ],
+    "start_state": "4",
+    "accept_states": [
+      "3",
+      "7"
+    ]
+  }

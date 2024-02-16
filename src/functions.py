@@ -1,5 +1,12 @@
-from classes import *
+# By Santiago Jimenez
+# Theory of Automata
+# Project 1
 
+from classes import *
+import json
+import os
+
+# Array with the regex types
 regex_types = ["*", "+", "?", "^", "$", "(", ")"]
 
 
@@ -11,7 +18,20 @@ def create_fa_json(data, fa):
     fa.set_start_state(data["start_state"])
     fa.set_accept_states(data["accept_states"])
     return fa
-    
+
+def load_file(command):
+    os.system('cls' if os.name == 'nt' else 'clear')
+
+    file_path = r"" + command.split("=")[1].strip('"')
+
+    try:
+        f = open(file_path)
+    except:
+        print("File not found.")
+        return None
+
+    data = json.load(f)
+    return data
     
 
 def fa_from_regex(regex):

@@ -1,0 +1,83 @@
+{
+    "states": [
+      "0",
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6"
+    ],
+    "alphabet": [
+      "b",
+      "<EPSILON>",
+      "a"
+    ],
+    "delta": [
+      {
+        "state": "2",
+        "input": "a",
+        "next_state": "2"
+      },
+      {
+        "state": "1",
+        "input": "b",
+        "next_state": "1"
+      },
+      {
+        "state": "3",
+        "input": "a",
+        "next_state": "4"
+      },
+      {
+        "state": "5",
+        "input": "b",
+        "next_state": "5"
+      },
+      {
+        "state": "4",
+        "input": "b",
+        "next_state": "4"
+      },
+      {
+        "state": "2",
+        "input": "b",
+        "next_state": "1"
+      },
+      {
+        "state": "1",
+        "input": "a",
+        "next_state": "2"
+      },
+      {
+        "state": "6",
+        "input": "<EPSILON>",
+        "next_state": "0"
+      },
+      {
+        "state": "0",
+        "input": "a",
+        "next_state": "2"
+      },
+      {
+        "state": "6",
+        "input": "<EPSILON>",
+        "next_state": "3"
+      },
+      {
+        "state": "3",
+        "input": "b",
+        "next_state": "5"
+      },
+      {
+        "state": "0",
+        "input": "b",
+        "next_state": "1"
+      }
+    ],
+    "start_state": "6",
+    "accept_states": [
+      "2",
+      "4"
+    ]
+  }

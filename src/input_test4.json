@@ -1,0 +1,37 @@
+{
+    "states": [
+      "0",
+      "1",
+      "2"
+    ],
+    "alphabet": [
+      "a",
+      "b"
+    ],
+    "delta": [
+      {
+        "state": "0",
+        "input": "a",
+        "next_state": "0"
+      },
+      {
+        "state": "1",
+        "input": "a",
+        "next_state": "2"
+      },
+      {
+        "state": "0",
+        "input": "b",
+        "next_state": "0"
+      },
+      {
+        "state": "0",
+        "input": "a",
+        "next_state": "1"
+      }
+    ],
+    "start_state": "0",
+    "accept_states": [
+      "2"
+    ]
+  }
