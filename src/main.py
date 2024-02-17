@@ -6,6 +6,9 @@ from classes import *
 from functions import *       
 import os
 
+# Clear the console
+#os.system('cls' if os.name == 'nt' else 'clear')
+
 # Command line interface
 while True:
 
