@@ -40,6 +40,11 @@ def get_data(command):
 # Create and configure the FA from the given regex
 def fa_from_regex(regex):
     
+    # Check if the regex is empty
+    if regex == "":
+        fa = FA()
+        return fa
+    
     #print("Regex: " + regex)
     
     # Set variables
@@ -232,6 +237,12 @@ def replace_q(data, new_letter):
 def concatenate_fa(fa1, fa2):
     # Initialize the new FA
     fa = FA()
+    
+    # Check if the FAs are empty
+    if len(fa1.states) == 0:
+        return fa2
+    if len(fa2.states) == 0:
+        return fa1
     
     # Set the alphabet
     for symbol in fa1.alphabet:
