@@ -27,7 +27,7 @@ while True:
         os.system('cls' if os.name == 'nt' else 'clear')
 
         # Read file and store its data
-        data = load_file(command)
+        data = get_data(command)
 
         # Create and configure the DFA
         fa = FA()
