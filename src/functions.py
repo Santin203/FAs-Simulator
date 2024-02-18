@@ -2,7 +2,12 @@
 # Theory of Automata
 # Project 1
 
-from classes import *
+# For tests
+from src.classes import *
+
+# For main
+#from classes import *
+
 import json
 import os
 
