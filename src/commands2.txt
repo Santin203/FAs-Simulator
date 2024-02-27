@@ -1,9 +1,0 @@
-load -input="C:\Users\santi\OneDrive - Texas Tech University\Documents\Texas Tech\Spring 2024\CS-3383\Projects\Project 1\src\input1.json"
-
-process -input="10"
-
-process -input="10" -verbose
-
-regex -input=^ABC(01001)*09$
-
-process -input="ABC0100109" -verbose
